@@ -1,4 +1,2 @@
-# config.ru
-
-require './app'
+require './twitter_mood'
 run Sinatra::Application

@@ -33,7 +33,7 @@ end
 
 get '/:name' do
 	@user = Score.first(:user => params[:name])
-	@mood = 'happy'
+	@mood = mood(@user.score)
 	@title = @user.user
 	erb :user
 end
@@ -54,7 +54,7 @@ end
 
 DataMapper.finalize.auto_upgrade!
 
-#Configure Twitter
+#Configure Twitter -------------------------------------------------------------
 
 $client = Twitter::REST::Client.new do |config|
   config.consumer_key        = "BWZjGf2K44l9oMxl2fbpmIcIZ"
@@ -63,16 +63,16 @@ $client = Twitter::REST::Client.new do |config|
   config.access_token_secret = "CJx9hZGLZeit4i8zY8GNp7vJWNA2NsTaLGEyTwcGkDwre"
 end
 
-# Fetch user Timeline tweets
+# Fetch user Timeline tweets 
 def tweets(user)
 	$client.user_timeline(user.to_s)
 end
 
-#Sentiment Analysis
+# Sentiment Analysis -----------------------------------------------------------
 
 Sentimental.load_defaults
 
-#Calculate sentiment score
+# Calculate sentiment score
 def score(tweet_array)
 	@sentiment = 0
 	tweet_array.each do |tweet|
@@ -80,5 +80,33 @@ def score(tweet_array)
 		@sentiment += analyzer.get_score tweet.text
 	end
 	@sentiment /= tweet_array.length
-	return sprintf("%0.02f", @sentiment * 20)
+	return sprintf("%0.02f", @sentiment * 10)
+end
+
+# Calculate mood based on score
+def mood(score)
+	mood = 'neutral'
+	case
+	when score.to_f < -5
+		mood = 'an angry'
+	when score.to_f < -4
+		mood = 'an ill-tempered'
+	when score.to_f < -3
+		mood = 'a negative'
+	when score.to_f < -2
+		mood = 'an unhappy'
+	when score.to_f < -1
+		mood = 'an irritated'
+	when score.to_f < 1
+		mood = 'a bored' #i.e. -1 < mood < 1
+	when score.to_f < 2
+		mood = 'a pleasant'
+	when score.to_f < 3
+		mood = 'a cheerful'
+	when score.to_f < 4
+		mood = 'a joyous'
+	when score.to_f < 5
+		mood = 'a happy'
+	else mood = 'an ecstatic'
+	end
 end

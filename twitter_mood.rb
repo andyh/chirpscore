@@ -98,6 +98,11 @@ def tweets(user)
 	$client.user_timeline(user.to_s)
 end
 
+# User image
+def image(name)
+	$client.user(name.user).profile_image_url(:bigger)
+end
+
 #Determine if user exists
 def exists?(user)
 	$client.user?(user) ? true : false
@@ -133,7 +138,7 @@ def mood(score)
 	when score.to_f < -1
 		mood = 'an irritated'
 	when score.to_f < 1
-		mood = 'a boring' #i.e. -1 < mood < 1
+		mood = 'an indifferent' #i.e. -1 < mood < 1
 	when score.to_f < 2
 		mood = 'a pleasant'
 	when score.to_f < 3

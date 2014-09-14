@@ -57,8 +57,7 @@ a:hover {
 	color: white;
 	font-size: 2.5em;
 	font-weight: normal;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding: 0 10px;
 	vertical-align:bottom;
 }
 
@@ -71,6 +70,7 @@ a:hover {
 
 #user_score {
 	font-size: 1.5em;
+	margin-top: -4%;
 }
 
 #score {
@@ -117,6 +117,49 @@ footer {
     height: 40px;
     margin-top: 40px;
     width: 100%;
+}
+footer p {
+	display: inline-block;
+}
+
+/* Twitter Share */
+
+.twitter-share {
+	width: 200px;
+	height: 70px;
+	background-color: #55acee;
+	color: white;
+	margin: 30px auto 0 auto;
+	text-align: center;
+}
+
+.twitter-share a:link {
+	color: white;
+	text-decoration: none;
+	margin: auto;
+	line-height: 70px;
+	font-size: 1.75em;
+}
+
+.twitter-share a:visited {
+	color: white;
+}
+
+.twitter-share:hover {
+	color: white;
+	text-decoration: underline;
+}
+
+/* Profile Photo */
+
+.profile-photo {
+	display: inline-block;	
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	position: relative;
+	top: 17px;
+	right: 17px;
 }
 
 /* New Layout */

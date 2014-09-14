@@ -1,4 +1,27 @@
 <section id="user_score">
-	<p><em><a href="https://twitter.com/<%=@user.user%>" target="_blank"><strong>@<%= @user.user %></strong></a> is <%= @mood %> tweeter with a score of</em></p>
+	<p><img class="profile-photo "src="<%= image(@user) %>"><em><a href="https://twitter.com/<%=@user.user%>" target="_blank"><strong>@<%= @user.user %></strong></a> is <%= @mood %> tweeter with a score of</em></p>
 	<p id="score"><%= @user.score %></p>
+
+	<div class="twitter-share">
+		<a class="twitter popup" href="http://twitter.com/share?text=.@<%= @user.user %>%20is%20<%= @mood %>%20tweeter%20with%20a%20score%20of%20<%= @user.score %>!%20What's%20your%20Twitter%20mood?%20%23chirpscore%20http://chirpscore.com/<%= @user.user %>">Tweet It</a>
+	</div>
 </section>
+
+<script>
+  $('.popup').click(function(event) {
+    var width  = 575,
+        height = 400,
+        left   = ($(window).width()  - width)  / 2,
+        top    = ($(window).height() - height) / 2,
+        url    = this.href,
+        opts   = 'status=1' +
+                 ',width='  + width  +
+                 ',height=' + height +
+                 ',top='    + top    +
+                 ',left='   + left;
+    
+    window.open(url, 'twitter', opts);
+ 
+    return false;
+  });
+</script>

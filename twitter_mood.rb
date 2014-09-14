@@ -3,7 +3,6 @@ require 'sinatra'
 require 'data_mapper'
 require 'twitter'
 require 'sentimental'
-require './environments.rb'
 # require 'sass'
 # require 'haml'
 

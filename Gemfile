@@ -1,21 +1,32 @@
 source 'http://rubygems.org'
+ruby '2.1.2'
 
-gem 'sinatra', '1.4.5'
-gem 'twitter', '5.11.0'
+gem 'sinatra'
+gem 'twitter'
 
-gem 'dm-aggregates', '1.2.0'
-gem 'dm-constraints', '1.2.0'
-gem 'dm-core', '1.2.1'
-gem 'dm-do-adapter', '1.2.0'
-gem 'dm-migrations', '1.2.0'
-gem 'dm-serializer', '1.2.2'
-gem 'dm-sqlite-adapter', '1.2.0'
-gem 'dm-timestamps', '1.2.0'
-gem 'dm-types', '1.2.2'
-gem 'dm-validations', '1.2.0'
-gem 'do_sqlite3', '0.10.14'
+gem 'dm-aggregates'
+gem 'dm-constraints'
+gem 'dm-core'
+gem 'dm-migrations'
+gem 'dm-serializer'
+gem 'dm-timestamps'
+gem 'dm-types'
+gem 'dm-validations'
 
-gem 'data_mapper', '1.2.0'
-gem 'sqlite3', '1.3.9'
+gem 'data_mapper'
+gem 'pg'
 
-gem 'sentimental', '1.0.3'
+gem 'sentimental'
+
+group :development do
+	gem 'sqlite3'
+	gem 'dm-sqlite-adapter'
+	gem 'do_sqlite3'
+
+end
+
+group :production do
+	gem 'pg'
+	gem 'do_postgres'
+	gem 'dm-postgres-adapter'
+end

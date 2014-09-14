@@ -3,6 +3,7 @@ require 'sinatra'
 require 'data_mapper'
 require 'twitter'
 require 'sentimental'
+require './environments.rb'
 # require 'sass'
 # require 'haml'
 
@@ -69,9 +70,15 @@ get '/:name' do
 end
 
 
-# SQLite Database --------------------------------------------------------------
+# Database ---------------------------------------------------------------------
 
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/twitter_mood.db")
+configure :development do
+    DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+end
+
+configure :production do
+    DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_RED_URL'])
+end
 
 class Score 
 	include DataMapper::Resource

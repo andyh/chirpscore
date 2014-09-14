@@ -29,6 +29,9 @@ GEM
       dm-core (~> 1.2.0)
     dm-migrations (1.2.0)
       dm-core (~> 1.2.0)
+    dm-postgres-adapter (1.2.0)
+      dm-do-adapter (~> 1.2.0)
+      do_postgres (~> 0.10.6)
     dm-serializer (1.2.2)
       dm-core (~> 1.2.0)
       fastercsv (~> 1.5)
@@ -52,6 +55,8 @@ GEM
       uuidtools (~> 2.1)
     dm-validations (1.2.0)
       dm-core (~> 1.2.0)
+    do_postgres (0.10.14)
+      data_objects (= 0.10.14)
     do_sqlite3 (0.10.14)
       data_objects (= 0.10.14)
     equalizer (0.0.9)
@@ -68,6 +73,7 @@ GEM
     multi_json (1.10.1)
     multipart-post (2.0.0)
     naught (1.0.0)
+    pg (0.17.1)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -98,19 +104,21 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  data_mapper (= 1.2.0)
-  dm-aggregates (= 1.2.0)
-  dm-constraints (= 1.2.0)
-  dm-core (= 1.2.1)
-  dm-do-adapter (= 1.2.0)
-  dm-migrations (= 1.2.0)
-  dm-serializer (= 1.2.2)
-  dm-sqlite-adapter (= 1.2.0)
-  dm-timestamps (= 1.2.0)
-  dm-types (= 1.2.2)
-  dm-validations (= 1.2.0)
-  do_sqlite3 (= 0.10.14)
-  sentimental (= 1.0.3)
-  sinatra (= 1.4.5)
-  sqlite3 (= 1.3.9)
-  twitter (= 5.11.0)
+  data_mapper
+  dm-aggregates
+  dm-constraints
+  dm-core
+  dm-migrations
+  dm-postgres-adapter
+  dm-serializer
+  dm-sqlite-adapter
+  dm-timestamps
+  dm-types
+  dm-validations
+  do_postgres
+  do_sqlite3
+  pg
+  sentimental
+  sinatra
+  sqlite3
+  twitter

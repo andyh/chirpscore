@@ -14,7 +14,6 @@ gem 'dm-types'
 gem 'dm-validations'
 
 gem 'data_mapper'
-gem 'pg'
 
 gem 'sentimental'
 

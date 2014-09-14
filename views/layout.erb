@@ -4,15 +4,18 @@
   		<meta charset="UTF-8">
   		<title>
   			<% if @title == '' %>
-  				Twitter Mood
+  				Chirp &mdash; What's your Twitter mood?
   			<% else %>
-				<%= @title + ' | Twitter Mood' %>
+				<%= @title + ' | Chirp' %>
   			<% end %>
   		</title>
+  		<link rel="stylesheet" href="normalize.css">
+  		<link rel="stylesheet" href="style.css">
+  		<link rel="stylesheet" href="responsive.css">
 	</head>
-	<body>
+	<body class="<%= @home_layout ? "home_layout" : "new_layout" %>">
 		<header>
-			<h1><a href="/">Twitter Mood</a></h1>
+			<h1><a href="/">Chirp</a></h1>
 			<h2>What's your Twitter mood?</h2>
 		</header><!-- end header -->
 
@@ -21,7 +24,7 @@
 		</div><!-- end main -->
 
 		<footer>
-			<p><small>&copy; 2014 &mdash; a Nick Goodall creation.</small></p>
+			<p>&copy; 2014 &mdash; a Nick Goodall creation.</p>
 		</footer><!-- end footer -->
 	</body>
 </html>

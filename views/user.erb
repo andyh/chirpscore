@@ -1,4 +1,4 @@
-<section>
-	<p>@<%= @user.user %> is <%= @mood %> tweeter with a score of</p>
+<section id="user_score">
+	<p><em><a href="https://twitter.com/<%=@user.user%>" target="_blank"><strong>@<%= @user.user %></strong></a> is <%= @mood %> tweeter with a score of</em></p>
 	<p id="score"><%= @user.score %></p>
 </section>

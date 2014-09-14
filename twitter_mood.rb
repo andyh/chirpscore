@@ -9,22 +9,31 @@ require 'sentimental'
 
 get '/' do
 	@title = ''
+	@home_layout = true
 	erb :home
 end
 
 post '/' do
-	s = Score.first(:user => params[:user])
-	if s == nil
-		s = Score.new
-		s.user = params[:user]
-		s.score = score(tweets(params[:user]))
-		s.created_at = Time.now
-		s.updated_at = Time.now
-		s.save
+	username = params[:user]
+	if username[0] == '@'
+		username[0] = ''
+	end
+	if !exists?(username)
+		redirect '/'
 	else
-		s.score = score(tweets(params[:user]))
-		s.updated_at = Time.now
-		s.save
+		s = Score.first(:user => username)
+		if s == nil
+			s = Score.new
+			s.user = username
+			s.score = score(tweets(username))
+			s.created_at = Time.now
+			s.updated_at = Time.now
+			s.save
+		else
+			s.score = score(tweets(username))
+			s.updated_at = Time.now
+			s.save
+		end
 	end
 	redirect "/#{s.user}"
 end
@@ -35,6 +44,7 @@ get '/:name' do
 	@user = Score.first(:user => params[:name])
 	@mood = mood(@user.score)
 	@title = @user.user
+	@home_layout = false
 	erb :user
 end
 
@@ -68,6 +78,12 @@ def tweets(user)
 	$client.user_timeline(user.to_s)
 end
 
+#Determine if user exists
+def exists?(user)
+	$client.user?(user) ? true : false
+
+end
+
 # Sentiment Analysis -----------------------------------------------------------
 
 Sentimental.load_defaults
@@ -98,7 +114,7 @@ def mood(score)
 	when score.to_f < -1
 		mood = 'an irritated'
 	when score.to_f < 1
-		mood = 'a bored' #i.e. -1 < mood < 1
+		mood = 'a boring' #i.e. -1 < mood < 1
 	when score.to_f < 2
 		mood = 'a pleasant'
 	when score.to_f < 3

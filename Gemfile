@@ -1,4 +1,5 @@
-source "https://rubygems.org"
+source 'http://rubygems.org'
+
 gem 'sinatra', '1.4.5'
 gem 'twitter', '5.11.0'
 

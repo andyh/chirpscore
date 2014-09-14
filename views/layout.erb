@@ -16,7 +16,9 @@
 	<body class="<%= @home_layout ? "home_layout" : "new_layout" %>">
 		<header>
 			<h1><a href="/">Chirp</a></h1>
-			<h2>What's your Twitter mood?</h2>
+			<% if @home_layout %>
+			<%= "<h2>What's your Twitter mood?</h2>" %>
+			<% end %>
 		</header><!-- end header -->
 
 		<div id="main">

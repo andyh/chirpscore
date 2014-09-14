@@ -1,7 +1,27 @@
+# require 'compass'
 require 'sinatra'
 require 'data_mapper'
 require 'twitter'
 require 'sentimental'
+# require 'sass'
+# require 'haml'
+
+# Configure SASS
+
+# configure do
+#   set :haml, {:format => :html5}
+#   set :scss, {:style => :compact, :debug_info => false}
+#   Compass.add_project_configuration(File.join(settings.root, 'config', 'compass.rb'))
+# end
+
+# get '/stylesheets/:name.css' do
+#   content_type 'text/css', :charset => 'utf-8'
+#   scss :"stylesheets/#{params[:name]}", Compass.sass_engine_options
+# end
+
+# get '/stylesheets' do
+#   scss :style
+# end
 
 # Routes -----------------------------------------------------------------------
 
@@ -81,7 +101,6 @@ end
 #Determine if user exists
 def exists?(user)
 	$client.user?(user) ? true : false
-
 end
 
 # Sentiment Analysis -----------------------------------------------------------
@@ -101,7 +120,7 @@ end
 
 # Calculate mood based on score
 def mood(score)
-	mood = 'neutral'
+	mood = ''
 	case
 	when score.to_f < -5
 		mood = 'an angry'

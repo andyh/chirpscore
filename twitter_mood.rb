@@ -17,12 +17,12 @@ post '/' do
 	if s == nil
 		s = Score.new
 		s.user = params[:user]
-		s.score = 7.6
+		s.score = score(tweets(params[:user]))
 		s.created_at = Time.now
 		s.updated_at = Time.now
 		s.save
 	else
-		s.score = 7.7
+		s.score = score(tweets(params[:user]))
 		s.updated_at = Time.now
 		s.save
 	end
@@ -34,8 +34,6 @@ end
 get '/:name' do
 	@user = Score.first(:user => params[:name])
 	@mood = 'happy'
-	@tweets = tweets("nbgoodall")
-	#@score = Score.get params[:score]
 	@title = @user.user
 	erb :user
 end
@@ -65,14 +63,22 @@ $client = Twitter::REST::Client.new do |config|
   config.access_token_secret = "CJx9hZGLZeit4i8zY8GNp7vJWNA2NsTaLGEyTwcGkDwre"
 end
 
+# Fetch user Timeline tweets
 def tweets(user)
-	$client.user_timeline(user)
+	$client.user_timeline(user.to_s)
 end
 
 #Sentiment Analysis
 
 Sentimental.load_defaults
 
+#Calculate sentiment score
 def score(tweet_array)
-	
+	@sentiment = 0
+	tweet_array.each do |tweet|
+		analyzer = Sentimental.new
+		@sentiment += analyzer.get_score tweet.text
+	end
+	@sentiment /= tweet_array.length
+	return sprintf("%0.02f", @sentiment * 20)
 end

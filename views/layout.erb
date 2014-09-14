@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+  		<meta charset="UTF-8">
+  		<title>
+  			<% if @title == '' %>
+  				Twitter Mood
+  			<% else %>
+				<%= @title + ' | Twitter Mood' %>
+  			<% end %>
+  		</title>
+	</head>
+	<body>
+		<header>
+			<h1>Twitter Mood</h1>
+			<h2>How happy are your tweets?</h2>
+		</header><!-- end header -->
+
+		<div id="main">
+			<%= yield %>
+		</div><!-- end main -->
+
+		<footer>
+			<p><small>&copy; 2014 &mdash; a Nick Goodall creation.</small></p>
+		</footer><!-- end footer -->
+	</body>
+</html>

@@ -55,7 +55,7 @@ post '/' do
 			s.updated_at = Time.now
 			s.save
 		else
-			s.score = score(tweets(username))
+			s.score = (s.score + score(tweets(username))) / 2
 			s.updated_at = Time.now
 			s.save
 		end

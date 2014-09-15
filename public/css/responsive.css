@@ -9,8 +9,23 @@
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width : 320px) {
 	/* Styles */
+
+	/* Header */
+	header h1 {
+		font-size: 4em;
+	}
+
+	header h2 {
+		font-size: 3em;
+	}
+
+	/* Main Input */
+
+
+
 	#find input[type="text"] {
 		font-size: 1.5em;
+		height: 50px;
 	}
 }
 

@@ -9,25 +9,32 @@
 				<%= @title + ' | Chirp' %>
   			<% end %>
   		</title>
-  		<link rel="stylesheet" href="normalize.css">
-  		<link rel="stylesheet" href="style.css">
-  		<link rel="stylesheet" href="responsive.css">
+  		<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+  		<link rel="stylesheet" href="css/bootstrap.css">
+  		<link rel="stylesheet" href="css/style.css">
+  		<!-- <link rel="stylesheet" href="responsive.css"> -->
+
   		<script src="http://code.jquery.com/jquery-2.1.1.js"></script>
 	</head>
 	<body class="<%= @home_layout ? "home_layout" : "new_layout" %>">
-		<header>
-			<h1><a href="/">Chirp</a></h1>
-			<% if @home_layout %>
-			<%= "<h2>What's your Twitter mood?</h2>" %>
-			<% end %>
-		</header><!-- end header -->
-
-		<div id="main">
-			<%= yield %>
-		</div><!-- end main -->
-
-		<footer>
-			<p>&copy; 2014 &mdash; a Nick Goodall creation.</p>
-		</footer><!-- end footer -->
+		<div class="container-fluid">
+			<header class="header">
+				<h1><a href="/">Chirp</a></h1>
+				<% if @home_layout %>
+				<%= "<h2 class='lead'>What's your Twitter mood?</h2>" %>
+				<% end %>
+			</header><!-- end header -->
+			
+			<div class="" id="main">
+				<%= yield %>
+			</div><!-- end main -->
+			
+			<footer class="navbar navbar-fixed-bottom">
+				<div class="text-center">
+					<p>&copy; 2014 &mdash; a Nick Goodall creation.</p>
+				</div>
+			</footer><!-- end footer -->
+		</div>
+		<script src="/js/bootstrap.min.js"></script>
 	</body>
 </html>

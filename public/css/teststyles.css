@@ -1,0 +1,33 @@
+header {
+	text-align: center;
+}
+
+a:visited, a:link {
+	color: #AE251D;
+}
+
+header h1 {
+	margin: 50px auto;
+	font-size: 6em;
+	font-family: "Brush Script MT", cursive;
+}
+
+header h1:hover {
+	text-decoration: none;
+}
+
+#main {
+	text-align: center;
+}
+
+#main input[type="text"] {
+	text-align: center;
+}
+
+#main button {
+	text-transform: uppercase;
+}
+
+footer {
+	text-align: center;
+}

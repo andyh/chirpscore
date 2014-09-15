@@ -36,20 +36,9 @@ get '/' do
 end
 
 post '/' do
-	@fix = Score.all
-	@fix.each do |item |
-		if item.user.downcase != item.user
-			item.destroy
-		end
-	end
 	username = params[:user].downcase
 	if username[0] == '@'
 		username[0] = ''
-	end
-	begin
-		$client.user_timeline(username)
-	rescue
-		redirect '/'
 	end
 	if !exists?(username)
 		redirect '/'
@@ -78,6 +67,8 @@ get '/:name' do
 	@mood = mood(@user.score)
 	@title = @user.user
 	@home_layout = false
+	@happiest = happiest
+	@unhappiest = unhappiest
 	erb :user
 end
 
@@ -114,12 +105,20 @@ end
 
 # Fetch user Timeline tweets 
 def tweets(user)
-	$client.user_timeline(user.to_s)
+	begin
+		$client.user_timeline(user.to_s)
+	rescue
+		redirect '/'
+	end
 end
 
 # User image
 def image(name, size)
-	$client.user(name.user).profile_image_url(size)
+	begin
+		$client.user(name.user).profile_image_url(size)
+	rescue
+		redirect '/'
+	end
 end
 
 #Determine if user exists
@@ -173,10 +172,10 @@ end
 # Leaderboards -----------------------------------------------------------------
 def happiest
 	happiest   = Score.all(:order => [ :score.desc ])
-	happiest.slice!(0, 10)
+	happiest.slice!(0, 5)
 end
 
 def unhappiest
 	unhappiest = Score.all(:order => [ :score.asc ])
-	unhappiest.slice(0, 10)
+	unhappiest.slice(0, 5)
 end

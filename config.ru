@@ -1,2 +1,2 @@
-require './twitter_mood'
+require './app'
 run Sinatra::Application

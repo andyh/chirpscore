@@ -38,7 +38,7 @@ end
 post '/' do
 	@fix = Score.all
 	@fix.each do |item |
-		if !item.user.downcase?
+		if item.user.downcase != item.user
 			item.destroy
 		end
 	end

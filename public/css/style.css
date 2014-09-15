@@ -105,6 +105,7 @@ a.popup {
 button.twitter-share {
 	background-color: #55acee;
 	border: 0;
+	margin-bottom: 5%;
 }
 
 button.twitter-share:hover {

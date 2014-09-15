@@ -38,6 +38,11 @@ post '/' do
 	if username[0] == '@'
 		username[0] = ''
 	end
+	begin
+		$client.user_timeline(username)
+	rescue
+		redirect '/'
+	end
 	if !exists?(username)
 		redirect '/'
 	else

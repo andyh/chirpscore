@@ -22,7 +22,7 @@
 	    </script>
 	</head>
 	<body class="<%= @home_layout ? "home_layout" : "new_layout" %>">
-		<div class="container-fluid">
+		<div class="container-fluid" id="main-container">
 			<header class="header">
 				<h1><a href="/">Chirp</a></h1>
 				<% if @home_layout %>
@@ -30,11 +30,11 @@
 				<% end %>
 			</header><!-- end header -->
 			
-			<div class="" id="main">
+			<div id="main-body">
 				<%= yield %>
 			</div><!-- end main -->
 			
-			<footer class="navbar navbar-fixed-bottom">
+			<footer id="footer">
 				<div class="text-center">
 					<p>&copy; 2014 &mdash; a <a href="https://twitter.com/intent/user?screen_name=nbgoodall" target="_blank">Nick Goodall</a> creation.</p>
 				</div>

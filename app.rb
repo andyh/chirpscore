@@ -30,6 +30,8 @@ require 'sentimental'
 get '/' do
 	@title = ''
 	@home_layout = true
+	@happiest = happiest
+	@unhappiest = unhappiest
 	erb :home
 end
 
@@ -110,8 +112,8 @@ def tweets(user)
 end
 
 # User image
-def image(name)
-	$client.user(name.user).profile_image_url(:bigger)
+def image(name, size)
+	$client.user(name.user).profile_image_url(size)
 end
 
 #Determine if user exists
@@ -160,4 +162,15 @@ def mood(score)
 		mood = 'a happy'
 	else mood = 'an ecstatic'
 	end
+end
+
+# Leaderboards -----------------------------------------------------------------
+def happiest
+	happiest   = Score.all(:order => [ :score.desc ])
+	happiest.slice!(0, 10)
+end
+
+def unhappiest
+	unhappiest = Score.all(:order => [ :score.asc ])
+	unhappiest.slice(0, 10)
 end

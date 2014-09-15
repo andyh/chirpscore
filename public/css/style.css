@@ -9,7 +9,12 @@ Nick Goodall
 body {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #666;
-	padding-bottom: 70px;
+	height: 100%;
+}
+
+#main-container {
+	min-height: 100%;
+	position: relative;
 }
 
 a:link, a:visited {
@@ -23,12 +28,15 @@ a:hover {
 
 /* Main Input */
 
-#main {
+#main-body {
 	text-align: center;
+	padding-bottom: 60px;
+
 }
 
 #find {
 	margin-top: 2%;
+	margin-bottom: 2%;
 }
 
 #find input {
@@ -45,7 +53,6 @@ a:hover {
 
 
 /* User Page */
-
 
 #score {
 	font-size: 7em;
@@ -82,6 +89,12 @@ header h2 {
 
 /* Footer */
 
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 40px;
+}
 
 /* Twitter Share */
 
@@ -106,6 +119,49 @@ button.twitter-share:hover {
 	margin-right: 20px;
 }
 
+/* Leaderboard */
+
+.leaderboards .happiest, .leaderboards .unhappiest {
+	display: inline-block;
+	margin: 0 20px;
+}
+
+/* Leaderboard table styling */
+
+.leaderboards tr {
+	margin-top: 10px;
+}
+
+.leaderboards tr:hover {
+	cursor: pointer;
+}
+
+.leaderboards tr:hover .table-user {
+	text-decoration: underline;
+}
+
+.leaderboards td {
+	padding: 5px;
+}
+
+.leaderboards .table-photo img {
+	border-radius: 100%;
+	width: 48px;
+	height: 48px;
+}
+
+.leaderboards .table-user {
+	text-align: left;
+	font-size: 1.25em;
+	color: #AE251D;
+}
+
+.leaderboards .table-score {
+	text-align: right;
+	color: #1D8FFA;
+	font-size: 1.3em;
+	font-weight: bold;
+}
 
 /* New Layout */
 

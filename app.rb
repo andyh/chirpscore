@@ -36,7 +36,13 @@ get '/' do
 end
 
 post '/' do
-	username = params[:user]
+	@fix = Score.all
+	@fix.each do |item |
+		if !item.user.downcase?
+			item.destroy
+		end
+	end
+	username = params[:user].downcase
 	if username[0] == '@'
 		username[0] = ''
 	end

@@ -38,14 +38,11 @@ a:hover {
 
 
 #find button {
-/*	background-color: #AE251D;
-	border-color: #AE251D;*/
+	background-color: #AE251D;
+	border-color: #AE251D;
 	text-transform: uppercase;
 }
 
-#find button:hover {
-	
-}
 
 /* User Page */
 

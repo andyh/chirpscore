@@ -55,7 +55,7 @@ post '/' do
 			s.updated_at = Time.now
 			s.save
 		else
-			s.score = sprintf("%0.02f", s.score.to_f + score(tweets(username)).to_f)
+			s.score = sprintf("%0.02f", (s.score.to_f + score(tweets(username)).to_f) / 2)
 			s.updated_at = Time.now
 			s.save
 		end

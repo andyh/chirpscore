@@ -6,6 +6,8 @@ require 'sentimental'
 # require 'sass'
 # require 'haml'
 
+run Sinatra::Application
+
 # Configure SASS
 
 # configure do

@@ -9,7 +9,6 @@ require 'find'
 # require 'haml'
 
 set :root, File.dirname(__FILE__)
-set :public, 'public'
 
 # Configure SASS
 
@@ -117,7 +116,7 @@ end
 def image(name)
 	exists = false
 	photo_path = ""
-	Find.find('./app/public/profile_images/') do |path|
+	Find.find('profile_images/') do |path|
 		if path.include? name
 			exists = true 
 			photo_path = path

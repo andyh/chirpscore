@@ -11,6 +11,7 @@ require 'find'
 set :static, true
 set :root, File.dirname(__FILE__)
 set :public_folder, "public"
+set :public, 'public'
 
 # Configure SASS
 
@@ -118,7 +119,7 @@ end
 def image(name)
 	exists = false
 	photo_path = ""
-	Find.find("profile_images/") do |path|
+	Find.find("public/profile_images/") do |path|
 		if path.include? name
 			exists = true 
 			photo_path = path
@@ -136,7 +137,7 @@ def download_image(name)
 	image_url = $client.user(name).profile_image_url(:bigger).to_s
 
 	extension = image_url.match(/(\w{3,4})$/)
-	file_path = "profile_images/#{name}.#{extension}"
+	file_path = "public/profile_images/#{name}.#{extension}"
 
 	File.open(file_path, 'w') do |output|
       open(image_url) do |input|

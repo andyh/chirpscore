@@ -97,10 +97,7 @@ DataMapper.finalize.auto_upgrade!
 #Configure Twitter -------------------------------------------------------------
 
 $client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = "BWZjGf2K44l9oMxl2fbpmIcIZ"
-  config.consumer_secret     = "o9xKwSzSbKwmpyaxDEQ5un58tQPEuzS30pKDmZfvZdkyu6lnXK"
-  config.access_token        = "469774692-95NWeVs7YMWGZNxYCyhNqqucoml3AwN6rVPsPDGB"
-  config.access_token_secret = "CJx9hZGLZeit4i8zY8GNp7vJWNA2NsTaLGEyTwcGkDwre"
+  
 end
 
 # Fetch user Timeline tweets 

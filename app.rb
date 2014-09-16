@@ -10,6 +10,7 @@ require 'find'
 
 set :static, true
 set :root, File.dirname(__FILE__)
+set :public_folder, "public"
 
 # Configure SASS
 

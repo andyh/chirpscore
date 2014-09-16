@@ -37,9 +37,7 @@ end
 
 post '/' do
 	username = params[:user].downcase
-	if username[0] == '@'
-		username[0] = ''
-	end
+	username[0] = '' if username[0] == '@'
 	if !exists?(username)
 		redirect '/'
 	else
@@ -67,8 +65,6 @@ get '/:name' do
 	@mood = mood(@user.score)
 	@title = @user.user
 	@home_layout = false
-	@happiest = happiest
-	@unhappiest = unhappiest
 	erb :user
 end
 
@@ -170,8 +166,9 @@ def mood(score)
 end
 
 # Leaderboards -----------------------------------------------------------------
+
 def happiest
-	happiest   = Score.all(:order => [ :score.desc ])
+	happiest = Score.all(:order => [ :score.desc ])
 	happiest.slice!(0, 5)
 end
 

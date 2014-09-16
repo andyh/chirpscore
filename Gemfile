@@ -20,7 +20,8 @@ group :development do
 	gem 'sqlite3'
 	gem 'dm-sqlite-adapter'
 	gem 'do_sqlite3'
-
+	gem 'foreman'
+	gem 'dotenv'
 end
 
 group :production do

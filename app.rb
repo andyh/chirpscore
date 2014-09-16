@@ -8,6 +8,8 @@ require 'find'
 # require 'sass'
 # require 'haml'
 
+set :static, true
+
 # Configure SASS
 
 # configure do

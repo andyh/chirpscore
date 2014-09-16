@@ -3,6 +3,8 @@ require 'sinatra'
 require 'data_mapper'
 require 'twitter'
 require 'sentimental'
+require 'open-uri'
+require 'find'
 # require 'sass'
 # require 'haml'
 
@@ -108,16 +110,39 @@ def tweets(user)
 	end
 end
 
-# User image
-def image(name, size)
-	begin
-		$client.user(name.user).profile_image_url(size)
-	rescue
-		redirect '/'
+# Check if user image exists, else download new one
+def image(name)
+	exists = false
+	photo_path = ""
+	Find.find("profile_images/") do |path|
+		if path.include? name
+			exists = true 
+			photo_path = path
+		end
+	end
+	if exists
+		return photo_path
+	else
+		download_image(name)
 	end
 end
 
-#Determine if user exists
+# Download image
+def download_image(name)
+	image_url = $client.user(name).profile_image_url(:bigger).to_s
+
+	extension = image_url.match(/(\w{3,4})$/)
+	file_path = "profile_images/#{name}.#{extension}"
+
+	File.open(file_path, 'w') do |output|
+      open(image_url) do |input|
+        output << input.read
+      end
+    end
+    return file_path
+end
+
+# Determine if user exists
 def exists?(user)
 	$client.user?(user) ? true : false
 end

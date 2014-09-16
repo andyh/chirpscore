@@ -9,6 +9,7 @@ require 'find'
 # require 'haml'
 
 set :static, true
+set :root, File.dirname(__FILE__)
 
 # Configure SASS
 

@@ -117,7 +117,7 @@ end
 def image(name)
 	exists = false
 	photo_path = ""
-	Find.find('profile_images/') do |path|
+	Find.find('./public/profile_images/') do |path|
 		if path.include? name
 			exists = true 
 			photo_path = path

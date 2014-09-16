@@ -135,7 +135,7 @@ def download_image(name)
 	image_url = $client.user(name).profile_image_url(:bigger).to_s
 
 	extension = image_url.match(/(\w{3,4})$/)
-	file_path = "public/profile_images/#{name}.#{extension}"
+	file_path = "profile_images/#{name}.#{extension}"
 
 	File.open(file_path, 'w') do |output|
       open(image_url) do |input|

@@ -9,7 +9,8 @@ require 'find'
 # require 'haml'
 
 set :static, true
-set :root, File.dirname(__FILE__)
+#set :root, File.dirname(__FILE__)
+set :root, './'
 set :public_folder, "public"
 set :public, 'public'
 

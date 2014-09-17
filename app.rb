@@ -77,6 +77,7 @@ end
 
 configure :development do
     DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+    load 'env.rb'
 end
 
 configure :production do
@@ -97,7 +98,10 @@ DataMapper.finalize.auto_upgrade!
 #Configure Twitter -------------------------------------------------------------
 
 $client = Twitter::REST::Client.new do |config|
-  
+  config.consumer_key        = ENV["CONSUMER_KEY"]
+  config.consumer_secret     = ENV["CONSUMER_SECRET"]
+  config.access_token        = ENV["ACCESS_TOKEN"]
+  config.access_token_secret = ENV["ACCESS_TOKEN_SECRET"]
 end
 
 # Fetch user Timeline tweets 
@@ -194,10 +198,10 @@ end
 
 def happiest
 	happiest = Score.all(:order => [ :score.desc ])
-	happiest.slice!(0, 5)
+	happiest.slice!(0, 10)
 end
 
 def unhappiest
 	unhappiest = Score.all(:order => [ :score.asc ])
-	unhappiest.slice(0, 5)
+	unhappiest.slice(0, 10)
 end

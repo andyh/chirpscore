@@ -46,26 +46,26 @@ get '/' do
 end
 
 post '/' do
-	username = params[:user].downcase
-	username[0] = '' if username[0] == '@'
-	if !exists?(username)
-		redirect '/'
-	else
-		s = Score.first(:user => username)
-		if s == nil
-			s = Score.new
-			s.user = username
-			s.score = score(tweets(username))
-			s.created_at = Time.now
-			s.updated_at = Time.now
-			s.save
-		else
-			s.score = sprintf("%0.02f", (s.score.to_f + score(tweets(username)).to_f) / 2)
-			s.updated_at = Time.now
-			s.save
-		end
-	end
-	redirect "/user/#{s.user}"
+  username = params[:user].downcase
+  username[0] = '' if username[0] == '@'
+  redirect '/' if !exists?(username)
+
+  score = Score.first(:user => username)
+  if score == nil
+    score = Score.new
+    score.attributes = {
+      user: username,
+      score: calculate_score(tweets(username)),
+      created_at: Time.now,
+      updated_at: Time.now,
+    }
+    score.save
+  else
+    score.score = sprintf("%0.02f", (score.score.to_f + calculate_score(tweets(username)).to_f) / 2)
+    score.updated_at = Time.now
+    score.save
+  end
+  redirect "/user/#{score.user}"
 end
 
 # User page
@@ -127,7 +127,7 @@ end
 
 
 # Calculate sentiment score
-def score(tweet_array)
+def calculate_score(tweet_array)
 	@sentiment = 0
 	tweet_array.each do |tweet|
 		analyzer = Sentimental.new

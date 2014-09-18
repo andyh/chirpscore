@@ -65,12 +65,12 @@ post '/' do
 			s.save
 		end
 	end
-	redirect "/#{s.user}"
+	redirect "/user/#{s.user}"
 end
 
 # User page
 
-get '/:name' do
+get '/user/:name' do
 	@user = Score.first(:user => params[:name])
 	@mood = mood(@user.score)
 	@title = @user.user

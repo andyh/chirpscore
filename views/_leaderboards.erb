@@ -3,7 +3,7 @@
 		<h3>Happiest</h3>
 		<table>
 			<% @happiest.each do |item| %>
-				<%= "<tr onclick='window.document.location=\"http://chirpscore.com/#{item.user}\";'><td class='table-photo'><img src=\"#{image(item.user)}\"></td><td class='table-user'>#{item.user}</td> <td class='table-score'>#{item.score}</td></tr>" %>
+				<%= "<tr onclick='window.document.location=\"/user/#{item.user}\";'><td class='table-photo'><img src=\"/#{image(item.user)}\"></td><td class='table-user'>#{item.user}</td> <td class='table-score'>#{item.score}</td></tr>" %>
 			<% end %>
 		</table>
 	</div>
@@ -11,7 +11,7 @@
 		<h3>Unhappiest</h3>
 		<table>
 			<% @unhappiest.each do |item| %>
-				<%= "<tr onclick='window.document.location=\"http://chirpscore.com/#{item.user}\";'><td class='table-photo'><img src=\"#{image(item.user)}\"></td><td class='table-user'>#{item.user}</td> <td class='table-score'>#{item.score}</td></tr>" %>
+				<%= "<tr onclick='window.document.location=\"/user/#{item.user}\";'><td class='table-photo'><img src=\"/#{image(item.user)}\"></td><td class='table-user'>#{item.user}</td> <td class='table-score'>#{item.score}</td></tr>" %>
 			<% end %>
 		</table>
 	</div>

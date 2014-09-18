@@ -40,8 +40,8 @@ set :root, File.dirname(__FILE__)
 get '/' do
 	@title = ''
 	@home_layout = true
-	@happiest = happiest
-	@unhappiest = unhappiest
+	@happiest = Score.happiest
+	@unhappiest = Score.unhappiest
 	erb :home
 end
 
@@ -163,16 +163,4 @@ def mood(score)
 		mood = 'a happy'
 	else mood = 'an ecstatic'
 	end
-end
-
-# Leaderboards -----------------------------------------------------------------
-
-def happiest
-	happiest = Score.all(:order => [ :score.desc ])
-	happiest.slice!(0, 10)
-end
-
-def unhappiest
-	unhappiest = Score.all(:order => [ :score.asc ])
-	unhappiest.slice(0, 10)
 end

@@ -1,14 +1,15 @@
 Twitter Mood Analysis
+=====================
 
 Setting up development environment
-==================================
+----------------------------------
 
 1. Copy .env-example to .env and update with your twitter api keys (at http://dev.twitter.com)
 
-2. Create your Postgres database (createdb <database_name>) and configure database_url in .env
+2. Create your Postgres database (`createdb <database_name>`) and configure database_url in .env
 
 3. Ensure you have foreman installed
 
-  e.g. $_gem install foreman_
+  e.g. `gem install foreman`
 
 4. Then simply start the app with *foreman start*

@@ -46,9 +46,8 @@ get '/' do
 end
 
 post '/' do
-  username = params[:user].downcase
-  username[0] = '' if username[0] == '@'
   redirect '/' if !exists?(username)
+  username = String(params[:user]).delete("@").downcase
 
   score = Score.first(:user => username)
   if score == nil

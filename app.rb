@@ -9,7 +9,7 @@ require 'sentimental'
 require 'open-uri'
 require 'find'
 
-require_relative 'lib/score'
+require_relative 'lib/chirpscore'
 require_relative 'config'
 # require 'sass'
 # require 'haml'

@@ -71,11 +71,12 @@ end
 # User page
 
 get '/user/:name' do
-	@user = Score.first(:user => params[:name])
-	@mood = mood(@user.score)
-	@title = @user.user
-	@home_layout = false
-	erb :user
+  @user = Score.first(:user => params[:name])
+  redirect "/" unless @user
+  @mood = mood(@user.score)
+  @title = @user.user
+  @home_layout = false
+  erb :user
 end
 
 # Fetch user Timeline tweets 

@@ -1,3 +1,4 @@
+$stdout.sync = true # don't buffer stdout
 require 'dotenv'
 Dotenv.load
 # require 'compass'
@@ -7,6 +8,9 @@ require 'twitter'
 require 'sentimental'
 require 'open-uri'
 require 'find'
+
+require_relative 'lib/score'
+require_relative 'config'
 # require 'sass'
 # require 'haml'
 
@@ -74,38 +78,6 @@ get '/:name' do
 	erb :user
 end
 
-
-# Database ---------------------------------------------------------------------
-
-configure :development do
-    DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
-    load 'env.rb'
-end
-
-configure :production do
-    DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_BLUE_URL'])
-end
-
-class Score 
-	include DataMapper::Resource
-	property :id, Serial
-	property :user, Text, :required => true
-	property :score, Float, :required => true
-	property :created_at, DateTime
-	property :updated_at, DateTime
-end
-
-DataMapper.finalize.auto_upgrade!
-
-#Configure Twitter -------------------------------------------------------------
-
-$client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = ENV["TWITTER_CONSUMER_KEY"]
-  config.consumer_secret     = ENV["TWITTER_CONSUMER_SECRET"]
-  config.access_token        = ENV["TWITTER_ACCESS_TOKEN"]
-  config.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET"]
-end
-
 # Fetch user Timeline tweets 
 def tweets(user)
 	begin
@@ -153,9 +125,6 @@ def exists?(user)
 	$client.user?(user) ? true : false
 end
 
-# Sentiment Analysis -----------------------------------------------------------
-
-Sentimental.load_defaults
 
 # Calculate sentiment score
 def score(tweet_array)

@@ -46,21 +46,21 @@ get '/' do
 end
 
 post '/' do
-  redirect '/' if !exists?(username)
   username = String(params[:user]).delete("@").downcase
+  redirect '/' unless chirper_exists?(username)
 
   score = Score.first(:user => username)
   if score == nil
     score = Score.new
     score.attributes = {
       user: username,
-      score: calculate_score(tweets(username)),
+      score: calculate_score(tweets_for(username)),
       created_at: Time.now,
       updated_at: Time.now,
     }
     score.save
   else
-    score.score = sprintf("%0.02f", (score.score.to_f + calculate_score(tweets(username)).to_f) / 2)
+    score.score = sprintf("%0.02f", (score.score.to_f + calculate_score(tweets_for(username)).to_f) / 2)
     score.updated_at = Time.now
     score.save
   end
@@ -79,12 +79,9 @@ get '/user/:name' do
 end
 
 # Fetch user Timeline tweets 
-def tweets(user)
-	begin
-		$client.user_timeline(user.to_s)
-	rescue
-		redirect '/'
-	end
+def tweets_for(user)
+  @chirper = Chirper.new(user)
+  @chirper.fetch_data
 end
 
 # Check if user image exists, else download new one
@@ -107,7 +104,7 @@ end
 
 # Download image
 def download_image(name)
-	image_url = $client.user(name).profile_image_url(:bigger).to_s
+	image_url = Chirper.new(name).user.profile_image_url(:bigger).to_s
 
 	extension = image_url.match(/(\w{3,4})$/)
 	file_path = "public/profile_images/#{name}.#{extension}"
@@ -121,8 +118,8 @@ def download_image(name)
 end
 
 # Determine if user exists
-def exists?(user)
-	$client.user?(user) ? true : false
+def chirper_exists?(user)
+  Chirper.new(user).exists?
 end
 
 

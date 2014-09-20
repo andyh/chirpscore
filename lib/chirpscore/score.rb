@@ -15,12 +15,17 @@ class Score
   end
 
   def self.find_or_create_for(user)
-    Score.first(user: user.handle) || create_score_for(user)
+    find_score_for(user) || create_score_for(user)
+  end
 
-    # TODO should be updating score
-    # score.score = sprintf("%0.02f", (score.score.to_f + calculate_score(tweets_for(username)).to_f) / 2)
-    # score.updated_at = Time.now
-    # score.save
+  def self.find_score_for(user)
+    score = Score.first(user: user.handle) or return
+    score.attributes = {
+      score: CalculateScores.new(user.fetch_data).result,
+      updated_at: Time.now,
+    }
+    score.save
+    score
   end
 
   def self.create_score_for(user)

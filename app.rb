@@ -7,7 +7,7 @@ require 'data_mapper'
 require 'twitter'
 require 'sentimental'
 require 'open-uri'
-require 'find'
+require 'ostruct'
 
 require_relative 'lib/chirpscore'
 require_relative 'config'
@@ -61,36 +61,7 @@ get '/user/:name' do
   erb :user
 end
 
-
-# Check if user image exists, else download new one
-def image(name)
-	exists = false
-	photo_path = ""
-	Find.find('public/profile_images') do |path|
-		if path.include? name
-			exists = true 
-			path.slice!(0, 7)
-			photo_path = path
-		end
-	end
-	if exists
-		return photo_path
-	else
-		download_image(name)
-	end
-end
-
-# Download image
-def download_image(name)
-	image_url = Chirper.new(name).user.profile_image_url(:bigger).to_s
-
-	extension = image_url.match(/(\w{3,4})$/)
-	file_path = "public/profile_images/#{name}.#{extension}"
-
-	File.open(file_path, 'w') do |output|
-      open(image_url) do |input|
-        output << input.read
-      end
-    end
-    image(name)
+def image(handle)
+  user = OpenStruct.new(handle: handle)
+  Avatar.new(user).image
 end

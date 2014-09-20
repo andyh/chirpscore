@@ -18,6 +18,10 @@ class User
     @mood ||= Mood.new(self.score).display
   end
 
+  def avatar
+    @avatar ||= Avatar.new(self).image
+  end
+
   private
   def fetch_score
     Score.find_or_create_for(self)

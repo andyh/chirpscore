@@ -20,6 +20,7 @@ class Score
 
   def self.find_score_for(user)
     score = Score.first(user: user.handle) or return
+    return score if score.updated_at+1 > DateTime.now
     score.attributes = {
       score: CalculateScores.new(user.fetch_data).result,
       updated_at: Time.now,

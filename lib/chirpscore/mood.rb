@@ -11,11 +11,12 @@ class Mood
     4 => 'a joyous',
     5 => 'a happy',
   }
+  DEFAULT_WORD = -> () { [0,"an ecstatic"] }
   def initialize(score)
     @score = score
   end
 
   def display
-    WORD_MAP.find {|level,_| @score < level }.last || "an ecstatic"
+    WORD_MAP.find(DEFAULT_WORD) {|level,_| @score <= level }.last
   end
 end

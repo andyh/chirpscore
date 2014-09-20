@@ -15,7 +15,7 @@ class User
   def_delegators :@score, :score
 
   def mood
-    Mood.new(self.score).display
+    @mood ||= Mood.new(self.score).display
   end
 
   private

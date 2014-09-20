@@ -56,7 +56,6 @@ end
 get '/user/:name' do
   @user = User.new(params[:name])
   redirect '/' unless @user.exists?
-  @mood = @user.mood
   @title = @user.handle
   @home_layout = false
   erb :user

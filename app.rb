@@ -46,43 +46,22 @@ get '/' do
 end
 
 post '/' do
-  username = String(params[:user]).delete("@").downcase
-  redirect '/' unless chirper_exists?(username)
-
-  score = Score.first(:user => username)
-  if score == nil
-    score = Score.new
-    score.attributes = {
-      user: username,
-      score: calculate_score(tweets_for(username)),
-      created_at: Time.now,
-      updated_at: Time.now,
-    }
-    score.save
-  else
-    score.score = sprintf("%0.02f", (score.score.to_f + calculate_score(tweets_for(username)).to_f) / 2)
-    score.updated_at = Time.now
-    score.save
-  end
-  redirect "/user/#{score.user}"
+  user = User.new(params[:user])
+  redirect '/' unless user.exists?
+  redirect "/user/#{user.handle}"
 end
 
 # User page
 
 get '/user/:name' do
-  @user = Score.first(:user => params[:name])
-  redirect "/" unless @user
-  @mood = mood(@user.score)
-  @title = @user.user
+  @user = User.new(params[:name])
+  redirect '/' unless @user.exists?
+  @mood = @user.mood
+  @title = @user.handle
   @home_layout = false
   erb :user
 end
 
-# Fetch user Timeline tweets 
-def tweets_for(user)
-  @chirper = Chirper.new(user)
-  @chirper.fetch_data
-end
 
 # Check if user image exists, else download new one
 def image(name)
@@ -115,49 +94,4 @@ def download_image(name)
       end
     end
     image(name)
-end
-
-# Determine if user exists
-def chirper_exists?(user)
-  Chirper.new(user).exists?
-end
-
-
-# Calculate sentiment score
-def calculate_score(tweet_array)
-	@sentiment = 0
-	tweet_array.each do |tweet|
-		analyzer = Sentimental.new
-		@sentiment += analyzer.get_score tweet.text
-	end
-	@sentiment /= tweet_array.length
-	return sprintf("%0.02f", @sentiment * 10)
-end
-
-# Calculate mood based on score
-def mood(score)
-	mood = ''
-	case
-	when score.to_f < -5
-		mood = 'an angry'
-	when score.to_f < -4
-		mood = 'an ill-tempered'
-	when score.to_f < -3
-		mood = 'a negative'
-	when score.to_f < -2
-		mood = 'an unhappy'
-	when score.to_f < -1
-		mood = 'an irritated'
-	when score.to_f < 1
-		mood = 'an indifferent' #i.e. -1 < mood < 1
-	when score.to_f < 2
-		mood = 'a pleasant'
-	when score.to_f < 3
-		mood = 'a cheerful'
-	when score.to_f < 4
-		mood = 'a joyous'
-	when score.to_f < 5
-		mood = 'a happy'
-	else mood = 'an ecstatic'
-	end
 end

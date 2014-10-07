@@ -6,7 +6,7 @@ class User
 
   def initialize(username)
     @handle = String(username).delete("@").downcase
-    @chirper = Chirper.new(handle)
+    @chirper = Birdcage.new(handle)
     @score = fetch_score if self.exists?
     self
   end

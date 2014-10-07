@@ -12,7 +12,7 @@ class Avatar
 
   private
   def download_avatar_image
-    image_url = Chirper.new(@user.handle).user.profile_image_url(:bigger).to_s
+    image_url = Birdcage.new(@user.handle).user.profile_image_url(:bigger).to_s
     extension = File.extname(image_url)
     file_path = File.join([IMAGE_DIRECTORY, @user.handle, extension])
 

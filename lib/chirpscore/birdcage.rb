@@ -1,5 +1,5 @@
-class ChirperError < StandardError; end
-class Chirper
+class BirdcageError < StandardError; end
+class Birdcage
   def initialize(user)
     @user   = user
     @client = Twitter::REST::Client.new do |config|
@@ -13,7 +13,7 @@ class Chirper
   def fetch_data
 		@client.user_timeline(@user)
   rescue Twitter::Error
-    raise ChirperError, "Couldn't access Twitter"
+    raise BirdcageError, "Couldn't access Twitter"
   end
 
   def exists?
